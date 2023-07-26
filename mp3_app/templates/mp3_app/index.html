@@ -1,0 +1,94 @@
+{% extends 'mp3_app/basic.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'mp3_app/css/index.css' %}">
+{% endblock %}
+
+{% block body %}
+
+<section class="allsongs">
+    <h2>Library: {{ slug }}</h2>
+    {% if slug == "Favourites" %}
+        {% for fav in favsongs %}
+            <div class="card">
+                <div class="songname">
+                    <h4>{{ forloop.counter }}. {{ fav.song.song_title }}</h4>
+                    <a href="/mp3/rem_fav/{{ fav.song.song_id }}"><i class="fa-solid fa-heart" style="color:red;"></i></a>
+                </div>
+                <div class="audio-container">
+                    <audio controls class="audio-controls">
+                        <source src="{{ fav.song.song_file.url }}" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        {% endfor %}
+    {% elif slug == "All songs" %}
+        {% for song in allsongs %}
+            <div class="card">
+                <div class="songname">
+                    <h4>{{ forloop.counter }}. {{ song.song_title }}</h4>
+                    <a href="/mp3/addfav/{{ song.song_id }}" id="{{ song.song_id }}"><i class="fa-regular fa-heart" style="color:red;"></i></a>
+                </div>
+                <div class="audio-container">
+                    <audio controls class="audio-controls">
+                        <source src="{{ song.song_file.url }}" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        {% if user.is_authenticated %}
+            {% for song in allsongs %}
+                {% if song.song_id in favsongs %}
+                    <div class="card">
+                        <div class="songname">
+                            <h4>{{ forloop.counter }}. {{ song.song_title }}</h4>
+                            <a href="/mp3/rem_fav/{{ song.song_id }}" id="{{ song.song_id }}"><i class="fa-solid fa-heart" style="color:red;"></i></a>
+                        </div>
+                        <div class="audio-container">
+                            <audio controls class="audio-controls">
+                                <source src="{{ song.song_file.url }}" type="audio/mp3">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card">
+                        <div class="songname">
+                            <h4>{{ forloop.counter }}. {{ song.song_title }}</h4>
+                            <a href="/mp3/addfav/{{ song.song_id }}" id="{{ song.song_id }}"><i class="fa-regular fa-heart" style="color:red;"></i></a>
+                        </div>
+                        <div class="audio-container">
+                            <audio controls class="audio-controls">
+                                <source src="{{ song.song_file.url }}" type="audio/mp3">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            {%else%}
+            {%for song in allsongs%}
+            <div class="card">
+                <div class="songname">
+                    <h4>{{ forloop.counter }}. {{ song.song_title }}</h4>
+                    <a href="/mp3/addfav/{{ song.song_id }}" id="{{ song.song_id }}"><i class="fa-regular fa-heart" style="color:red;"></i></a>
+                </div>
+                <div class="audio-container">
+                    <audio controls class="audio-controls">
+                        <source src="{{ song.song_file.url }}" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+            {%endfor%}
+        {% endif %}
+        
+        
+    {% endif %}
+</section>
+
+{% endblock %}

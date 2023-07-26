@@ -1,0 +1,72 @@
+.allsongs{
+    width: 100%;
+    height: calc(100% - 40px); /* Subtract the height of the header (e.g., h2) from the container height */
+    
+}
+.fa-heart{
+    font-size: 30px;
+    
+}
+.card {
+    width: 1000px;
+    height: 100px; /* Set a fixed height for each .card element */
+    margin-top: 2%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(241, 229, 229);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+}
+.songname{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline:20px;
+}
+.audio-container{
+    padding-inline:20px;
+
+}
+.audio-controls{
+    width:98%;
+    
+}
+audio::-webkit-media-controls-panel {
+    background-color: rgb(241, 229, 229);
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the play/pause button */
+audio::-webkit-media-controls-play-button {
+    background-color: #3a71ac;
+    color: #fff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+/* Style the volume and progress bars */
+audio::-webkit-media-controls-volume-slider,
+audio::-webkit-media-controls-timeline {
+    background-color: rgb(241, 229, 229);
+    
+}
+
+audio::-webkit-media-controls-timeline {
+    height: 6px;
+}
+
+audio::-webkit-media-controls-timeline-thumb {
+    background-color: #007bff;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+}
+
+/* Style the time display */
+audio::-webkit-media-controls-time-remaining-display {
+    color: #007bff;
+}
+

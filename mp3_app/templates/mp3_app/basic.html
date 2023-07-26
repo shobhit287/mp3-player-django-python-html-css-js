@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <script src="https://kit.fontawesome.com/6ff5ef7611.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    {%load static%}
+    <link rel="stylesheet" href="{%static 'mp3_app/css/basic.css'%}">
+    {%block css%}{%endblock%}
+    <title>{%block title%}{%endblock%}</title>
+</head>
+<body>
+
+    <section class="navbar">
+
+          <div class="player_name">
+            <a href="/" ><h2>EchoMelody</h2></a>
+          </div>
+    <div class="search">
+    <form action="/mp3/search" method="get">
+        <input type="text" name="search" placeholder="Enter any Song Name">
+        <button type="submit">Search</button>
+    </form>
+    </div>
+
+
+    </section>
+    <section class="left-menu-fix">
+        <div class="allcontent">
+        <div class="leftmenu">
+        <div class="user-info">
+            
+            {% if user.is_authenticated %}
+            <div class="img-user">
+                <img src="{% static 'mp3_app/img/user.png' %}" alt="">
+            </div>
+            <div class="user-name">
+                <h2>{{request.user.first_name}} {{request.user.last_name}}</h2>
+                <div class="pre-log">
+                <h5>Premium</h5>
+                <a href="/mp3/logout"><h5 class="logout">Logout</h5></a>
+                </div>
+            </div>
+        {% else %}
+            <div class="img-user">
+                <img src="{% static 'mp3_app/img/user.png' %}" alt="">
+            </div>
+            <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#signupModal">
+                Register/Login
+            </button>
+        {% endif %}
+           
+           
+            
+        </div>
+      <div class="library">
+        <div class="lib-con">
+        <h2>Library:</h2>
+        <ul type="i">
+            <a href="/"><li id="allsong" class="activelib" onclick="handle()">All Songs</li></a>
+            <a href="/mp3/choice/Punjabi"><li  id="punjabi" onclick="handle()">Punjabi</li></a>
+            <a href="/mp3/choice/Hindi" ><li id="hindi" onclick="handle()">Hindi</li></a>
+            <a href="/mp3/choice/English" ><li id="english" onclick="handle()">English</li></a>
+            <a href="/mp3/choice/Favourites" ><li id="favourites" onclick="handle()">Favourites</li></a>
+        </ul>
+      </div>
+      </div>
+        </div>
+        <div class="right-menu">
+            {%for message in messages%}
+            <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert" id="myAlert">
+                <strong>Message:</strong> {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            
+            {%endfor%}
+            {%block body%}{%endblock%}
+        </div>
+        </div>
+    </section>
+          
+        </div>
+      </div>
+    </nav>
+
+
+<!--signup Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Sign Up</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/mp3/signup" method="post">{% csrf_token %}
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">First Name:</label>
+            <input type="text" class="form-control" name="signupfname" required id="exampleFormControlInput1" placeholder="Enter First Name">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Last Name:</label>
+            <input type="text" class="form-control" name="signuplname" required id="exampleFormControlInput1" placeholder="Enter Last Name">
+          </div>
+
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Username:</label>
+          <input type="text" class="form-control" name="username" required id="exampleFormControlInput1" placeholder="Choose Username(alphanumeric only)">
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Email address:</label>
+          <input type="email" class="form-control" name="email" id="exampleFormControlInput1" placeholder="name@example.com" required>
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Password:</label>
+          <input type="password" class="form-control" id="exampleFormControlInput1" name="password" placeholder="Enter Your Password" required>
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">Signup</button>
+        </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+          Login
+          </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Sign Up</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <form action="/mp3/login" method="post">{%csrf_token%}
+          <label for="exampleFormControlInput1" class="form-label">Username:</label>
+          <input type="text" class="form-control" name="loginusername" required id="exampleFormControlInput1" placeholder="Username">
+        
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Password:</label>
+          <input type="password" class="form-control" id="exampleFormControlInput1" name="loginpassword" placeholder="Enter Your Password" required>
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+      </form>
+    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal">
+          Signup
+          </button>
+      </div>
+    </div>
+  </div>
+</div>
+    
+<script>
+    if(localStorage.getItem('key1')){
+        let key1=localStorage.getItem('key1');
+        const active_id=document.getElementById(key1);
+        const allid=document.getElementById('allsong');
+        active_id.setAttribute('class','activelib');
+        if(key1!="allsong"){
+            allid.classList.remove('activelib');
+        
+    }}
+    localStorage.clear();
+    function handle(){
+        localStorage.clear();
+        const clickedid=event.target;
+        const eleid=clickedid.id;
+        localStorage.setItem('key1',eleid);
+    }
+    
+    var alertElement=document.getElementById('myAlert');
+    var delayms=3000;
+    setTimeout(closeAlert, delayms);
+    function closeAlert(){
+        alertElement.classList.remove('show');
+        setTimeout(function() {
+            alertElement.remove();
+        }, 1000);
+    }
+    
+</script>
+</body>
+
+</html>

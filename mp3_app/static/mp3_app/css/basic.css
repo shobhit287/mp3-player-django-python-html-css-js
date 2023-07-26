@@ -1,0 +1,144 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+a{
+    text-decoration: none;
+}
+.navbar{
+    display: flex;
+    flex-direction: row;
+    position: sticky;
+    top: 0;
+    justify-content: space-between;
+    padding-inline: 30px;
+    align-items: center;
+    z-index: 10000;
+    padding-block: 10px;
+    background-color:rgb(227, 213, 213);
+}
+
+.mobile-nav div{
+    width:30px;
+    height:5px;
+    background-color:black;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top:5px;
+    cursor: pointer;
+
+}
+.player_name a:hover{
+    color:rgb(198, 103, 68);
+    cursor: pointer;
+}
+.search {
+    width:80%;
+}
+.search input{
+    padding: 15px 10px;
+    width:80%;
+    outline: none;
+    border: none;
+    background-color:rgb(227, 213, 213);
+    border-bottom:solid 1px coral;
+    
+}
+.search button{
+    padding:10px 40px;
+    margin-left:5%;
+    border-radius: 5px;
+    background-color:cornflowerblue;
+}
+.search button:hover{
+    cursor: pointer;;
+    background-color:rgb(66, 111, 195);
+}
+.allcontent{
+    display: flex;
+    flex-direction: row;
+    gap:10px;
+
+}
+.leftmenu{
+    flex-direction: column;
+    width:20%;
+    display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 10000;
+    height:100vh;
+    background-color:rgb(164, 102, 102);
+    color:white;
+}
+.user-info{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    color:white;
+    padding:10px;
+    border-bottom: solid coral;
+    
+}
+
+.user-info img{
+    padding: 10px;
+    width:50px;
+}
+
+.user-name{
+    margin-left: 3%;
+}
+.user-name h2{
+    font-size: 20px;
+}
+.pre-log{
+    color:gold;
+    display: flex;
+    flex-direction: row;
+    gap:10px;
+    flex-wrap: wrap;
+}
+.logout{
+    color:rgb(229, 198, 19);
+}
+.logout:hover{
+    color:rgb(153, 137, 46);;
+}
+.library{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding:5px 40px;
+    
+}
+.library h2{
+    margin-top: 25%;
+    font-size:30px;
+}
+
+.lib-con ul{
+    margin-top:8%;
+    margin-left: 5%;
+}
+
+.lib-con ul li{
+   margin-top:30%;
+   font-size:20px;
+   
+}
+.lib-con ul li:hover{
+    color:rgb(124, 143, 160);
+    cursor: pointer;
+ }
+ .lib-con a{
+    color:white;
+ }
+ .activelib{
+    color:rgb(124, 143, 160);
+ }
+ .modal{
+    z-index: 200000;
+ }
